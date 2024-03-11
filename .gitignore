@@ -1,2 +1,11 @@
+# Dependency directories
+node_modules/
+
+# Build outputs
+dist/
+build/
+out/
+
+# Local development files
 .csv
 .DS_Store
