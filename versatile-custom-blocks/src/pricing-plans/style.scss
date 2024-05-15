@@ -1,0 +1,746 @@
+/* Default styles for your block (mobile-first) */
+.wp-block-versatile-custom-blocks-pricing-plans {
+    background-color: #fff;
+    color: #fff;
+    padding: 2px;
+}
+
+.sr-only {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip-path: polygon(0 0, 0 0, 0 0);
+	border: 0;
+	white-space: nowrap;
+	clip: rect(0, 0, 0, 0);
+}
+
+.planBannerContainer {
+	&.recommended {
+		color: #FFFFFF;
+		background: #5F27CD;
+		border-radius: 8px 8px 8px 8px;
+
+		.planBanner {
+			text-align: center;
+
+			.planBannerCopy {
+				font-size: 16px;
+				font-style: normal;
+				font-weight: 600;
+				line-height: 0%;
+			}
+		}
+
+		.pricing-plans {
+			border-radius: 8px 8px 8px 8px;
+		}
+	}
+
+	.planBanner {
+		display: none;
+		height: 25px;
+	}
+
+	.pricing-plans {
+		display: flex;
+		flex-direction: column;
+		padding: 20px 20px 15px 20px;
+		border-radius: 8px;
+		border: 1px solid var(--versatile-grayscale-gray-light, #D4D8DD);
+		background: var(--versatile-grayscale-white, #FFF);
+		margin: 0px; /* ove margin for full width on mobile */
+		width: 100%; /* Adjust this width as needed */
+
+		&.open {
+			.planHeader {
+				.planPriceMobileSection {
+					display: none;
+				}
+			}
+		}
+
+		&.collapsed {
+			.planHeader {
+				.planHeaderDesc {
+					min-height: auto;
+				}
+			}
+		}
+
+		/* Add styles for the dropdown feature */
+		.show-more-chevron {
+			position: absolute;
+			top: 0px;
+			right: 0px;
+			cursor: pointer;
+
+			/* Target the SVG element with the .rotate class within .show-more-chevron */
+			svg {
+				@keyframes rotate {
+					0% {
+						transform: rotate(0deg);
+					}
+					100% {
+						transform: rotate(180deg);
+					}
+				}
+
+				// Rotate the svg.
+				&.rotate {
+					transform: rotate(180deg);
+					transition: transform 0.3s ease-out;
+				}
+			}
+		}
+
+		&.advanced {
+			.planHeader {
+				.planName {
+					margin-bottom: 12.5px;
+				}
+			}
+		}
+
+		/* Add styles for the planHeader */
+		.planHeader {
+			position: relative;
+
+			.planName {
+				margin-bottom: 5px;
+
+				h3 {
+					margin-bottom: 0px; /* override the default margin */
+					color: #5F27CD;
+					font-style: normal;
+					line-height: 130%;
+					font-size: 24px;
+					font-weight: 600;
+
+					.planTitle {
+						display: inline;
+						vertical-align: middle;
+					}
+					
+					.mobileBanner {
+						padding: 5px; /* Adjust padding as needed */
+						border-radius: 3px;
+						border: 1px solid #F0EAFB;
+						background: #F0EAFB;
+						font-size: 16px;
+						font-style: normal;
+						font-weight: 600;
+						display: inline-block; /* Use inline-block to enable vertical-align */
+						text-align: center;
+						vertical-align: bottom; /* Align the text to the bottom of the container */
+						height: 40px; /* Set the height of the container */
+
+						.bannerText {
+							vertical-align: middle;
+							line-height: 2em;
+						}
+					}
+				}
+			}
+
+			.planPriceMobileSection {
+				p {
+					margin-bottom: 10px;
+					font-size: 16px;
+					line-height: 1.4em;
+					font-weight: 300;
+				}
+
+				color: #162948;
+				font-style: normal;
+				font-weight: 300;
+
+				.planPriceMobile,
+				.planPriceMobileSubscription  {
+					color: #162948;
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 600;
+					line-height: 1.4em;			
+				}
+			}
+
+			.planHeaderDesc {
+				min-height: 60px;
+				p {
+					color: var(--versatile-secondary-secondary-dark, #152947);
+					font-size: 16px;
+					font-style: normal;
+					font-weight: 300;
+					line-height: 1.4em;
+					margin-bottom: 0px; /* override the default margin */
+				}
+			}
+
+		}
+
+		.planDetails {
+			display: none; /* Initially hide the plan details */
+
+			/* Style for collapsed plans */
+			&.collapsed {
+				display: none;
+			}
+
+			/* Style for open plans */
+			&.open {
+				display: block;
+			}
+
+
+			.planPrice {
+				margin-top: 0px;
+
+				h3 {
+					margin-bottom: 0px; /* override the default margin */
+				}
+
+				h2 {
+					font-size: 32px;
+					margin-bottom: 0; /* override the default margin */
+
+					.pricing {
+						margin: 0px; 
+						font-size: 32px;
+						white-space: normal;
+						font-style: normal;
+						font-weight: 600;
+						line-height: 1.2;
+					}
+
+					.planPriceSubscription {
+						font-size: 16px;
+						font-style: normal;
+						font-weight: 300;
+						line-height: 1.4em; 
+					}
+				}
+			}
+		
+			.planTier {
+				margin: 5px;
+		
+				.planDropdown {
+					position: relative;
+					display: inline-block;
+					width: 100%;
+
+					.pricing-plans__select {
+						font-size: 14px;
+					}
+
+					.pricing-plans__ul {
+						display: none;
+						position: absolute;
+						left: 0;
+						background-color: #fff;
+						list-style-type: none;
+						padding: 0;
+						margin: 0;
+						width: 100%;
+						z-index: 1;
+
+						&.show-options {
+							display: block;
+							border: 1px solid #707C8F;
+							border-top: none;
+							border-radius: 0px 0px 3px 3px;
+
+							li {
+								&.dropdown-item {
+									padding: 10px;
+									cursor: pointer;
+									list-style-type: none;
+									margin-bottom: 0px;
+						
+									&:hover,
+									&.selected,
+									&[selected] {
+										background-color: #E9F0FB;
+									}
+									&.selected {
+										margin-bottom: none;
+									}
+								}
+							}
+						}
+					}
+
+					.dropdown-container {
+						border-radius: 3px;
+						border: 1px solid #707C8F;
+						background: #FFFFFF;
+						display: flex;
+						flex-direction: row;
+						justify-content: center;
+						flex: 1 0 0;
+						align-self: stretch;
+
+						&:focus-visible {
+							outline: none; // Remove the default outline
+							box-shadow: 0 0 2px rgba(95, 39, 205, 0.7), 0 0 5px rgba(95, 39, 205, 0.5);
+							transition: box-shadow 0.2s ease-in-out;
+						}
+
+						&.show-options {
+							border-bottom: 0px;
+							border-radius: 3px 3px 0px 0px;
+						}
+
+						.selected-tier {
+							color: #162948;
+							font-size: 20px;
+							font-style: normal;
+							font-weight: 300;
+							line-height: 140%;
+							display: inline;
+							cursor: pointer;
+							padding: 10px;
+							width: 100%;
+							z-index: 1;
+							white-space: nowrap;
+						}
+
+						/* Animation for resetting the arrow when not in focus */
+						@keyframes reset-rotation {
+							0% {
+								transform: rotate(180deg);
+							}
+							100% {
+								transform: rotate(0deg);
+							}
+						}
+
+						/* Define the initial state of the rotate-icon */
+						.rotate-icon {
+							margin-top: 15px;
+							margin-right: 15px;
+							transition: transform 0.3s ease-out; /* Add a transition for the transform property */
+						}
+
+						/* Add a CSS class to rotate the arrow */
+						.rotate-icon.rotate {
+							transform: rotate(180deg);
+						}
+
+						/* Define a CSS animation for rotating the arrow */
+						@keyframes rotate-arrow {
+							0% {
+								transform: rotate(0deg);
+							}
+							100% {
+								transform: rotate(180deg);
+							}
+						}
+
+						/* Apply the animation to the arrow icon when the class 'rotate' is added */
+						.rotate-icon.rotate {
+							animation: rotate-arrow 0.3s ease-out; /* Adjust duration and timing function as needed */
+							animation-fill-mode: forwards;
+						}
+
+					}
+
+					.dropdown-item {
+						.monthlyLabel {
+							color: #152947;
+							font-size: 16px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: 140%;
+						}
+
+						.overageLabel {
+							color: #707C8F;
+							font-size: 14px;
+							font-style: normal;
+							font-weight: 400;
+							line-height: 100%;
+						}
+
+						&:focus-visible {
+							outline: none; // Remove the default outline
+							box-shadow: 0 0 2px rgba(95, 39, 205, 0.7), 0 0 5px rgba(95, 39, 205, 0.5);
+							transition: box-shadow 0.2s ease-in-out;
+						}
+					}
+				}
+		
+				.overages {
+					color: #162948;
+					padding-top: 8px;
+					font-size: 16px;
+					white-space: normal; /* Allow line breaks within the second line */
+					display: block; /* Make the second line a block element */
+
+					a {
+						text-decoration: underline;
+						text-decoration-color: #5F27CD;
+						color: #5F27CD;
+
+						&:hover,
+						&:active {
+							text-decoration: none;
+						}
+					}
+				}
+		
+				.planContent {
+					font-size: 16px;
+				}
+			}
+		
+			.plansButton {
+				color: #FFFFFF;
+				margin: 20px 0px 20px 0px;
+				display: flex;
+				height: 50px;
+				padding: 15px 25px;
+				justify-content: center;
+				align-items: center;
+				gap: 15px;
+				align-self: stretch;
+				font-size: 20px;
+				font-style: normal;
+				font-weight: 500;
+				line-height: 20px;
+				text-decoration: none;
+				border-radius: 25px;
+				position: relative;
+
+				&.primary {
+					background-color: #5F27CD;
+					border: 1px solid #667387;
+
+					&:hover {
+						cursor: pointer;
+						background-color: #8242FF;
+						border: 1px solid #5F27CD;
+					}
+				}
+
+				&.secondary {
+					background-color: #FFFFFF;
+					color:  #5F27CD;
+					border: 1px solid rgba(95, 39, 205, 0.2);
+
+					&:hover {
+						cursor: pointer;
+						background-color: transparent;
+						border: 1px solid #5F27CD;
+					}
+				}
+			
+				a {
+					color: inherit;
+					text-decoration: none;
+					position: absolute;
+					top: 0;
+					left: 0;
+					width: 100%;
+					height: 100%;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					border-bottom: none;
+				}
+			}
+			
+		
+			.features {
+
+				margin: 5px;
+		
+				.featuresTitle {
+					h5 {
+						color: #162948;
+						margin: 0;
+						font-size: 16px;
+						font-style: normal;
+						font-weight: 500;
+						line-height: 1.3em;
+					}
+		
+					margin: 5px 5px 0px 5px;
+				}
+		
+				.featuresList {
+					color: #162948;
+					ul {
+						margin: 0 5px;
+						padding: 0;
+						list-style-type: none;
+				
+						li {
+							margin-top: 10px;
+							margin-bottom: 10px;
+							font-size: 16px;
+							list-style: none; // Remove default list bullets
+				
+							&::before {
+								content: "";
+								display: inline-block;
+								width: 16px;
+								height: 16px;
+								background: url('images/svgs/checkmark.svg') no-repeat left center;	
+								margin-right: 10px; // Adjust the spacing between the icon and text
+								vertical-align: middle; // Align the icon vertically in the middle
+							}
+
+							&:last-child {
+								margin-bottom: 0px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}
+/* Styles for tablet and desktop screens */
+@media (min-width: 768px) {
+	.planBannerContainer {
+		.pricing-plans {
+			font-family: "TT_Commons",Helvetica,Arial,sans-serif;
+			font-style: normal;
+
+			.planHeader {
+				.planName {
+					h3 {
+						.planTitle {
+							font-size: 36px;
+						}
+					}
+				}
+
+				.planPriceMobileSection {
+					font-size: 18px;
+	
+					.planPriceMobile,
+					.planPriceMobileSubscription  {
+						font-size: 18px;
+					}
+				}
+
+				.planHeaderDesc {
+					min-height: 40px;
+
+					p {
+						font-size: 18px;
+					}
+				}
+			}
+
+			.planDetails {
+
+				.planPrice {
+					h2 {
+						margin-top: 10px;
+						margin-bottom: 10px;
+						line-height: 1.2;
+
+						.planPriceSubscription {
+							font-size: 18px;
+						}
+					}
+				}
+
+				.planTier {
+					.planDropdown {
+						min-height: 80px;
+					}
+					.planContent {
+						min-height: 20px;
+					}
+					.planContent {
+						min-height: 20px;
+					}
+				}
+			}
+
+			.featuresTitle {
+				h4 {
+					margin-top: 20px;
+				}
+			}
+		}
+	}
+}
+
+/* Styles for odd breakpoint to prevent scrunching of styles. */
+@media (min-width: 782px) {
+	.pricingContainer {
+		.wp-block-columns {
+			flex-wrap: wrap !important;
+
+			.wp-block-column {
+				flex-basis: 100% !important;
+			}
+		}
+	}
+
+	.planBannerContainer {
+		margin: 0 auto;
+		max-width: 680px;
+
+		.pricing-plans,
+		&.recommended {
+			max-width: 680px;
+		}
+	}
+} 
+
+@media (min-width: 1040px) {
+	/*override the default styles from WordPress for the pricing container to eliminate scrunching */
+	.pricingContainer {
+		.wp-block-columns {
+			flex-wrap: initial !important;
+
+			.wp-block-column {
+				flex-basis: 100% !important;
+			}
+		}
+	}
+
+	.planBannerContainer {
+		.planBanner {
+			display: block;
+		}
+
+		&.recommended {
+
+			.pricing-plans {
+				border-radius: 0px 0px 8px 8px;
+			}
+		}
+
+		.pricing-plans {
+			height: 685px;
+
+			.planHeader {
+				.planName {
+					h3 {
+						.mobileBanner {
+							display: none;
+						}
+					}
+				}
+
+				.planPriceMobileSection {
+					display: none;
+				}
+
+				.planHeaderDesc {
+					min-height: 80px;
+				}
+			}
+
+			.planDetails {
+				display: block;
+
+				.planPrice {
+					h2 {
+						.pricing {
+							font-size: 48px;
+						}
+
+						.planPriceMobileSubscription {
+							      font-size: 18px;
+						}
+					}
+				}
+
+				.planTier {
+					.planDropdown {
+						margin-top: -3px; /* Push the container up so that it fits inline with text. */
+					}
+
+					.planContent {
+						min-height: 80px;
+						margin-bottom: 25px;
+					}
+				}
+
+				.features {
+					.featuresTitle {
+						h5 {
+							font-size: 20px;
+						}
+					}
+
+					.featuresList {
+						ul {
+							li {
+								font-size: 18px;
+							}
+						}
+					}
+				}
+			}
+
+			// Hide for tablet and desktop
+			.show-more-chevron {
+				display: none;
+			}
+		}
+	}
+}
+
+@media (min-width: 1200px) {
+	.planBannerContainer {
+		.pricing-plans {
+			height: 760px;
+
+			.planHeader {
+				.planName {
+					h3 {
+						.planTitle {
+							font-size: 36px;
+						}
+					}
+				}
+			}
+
+			.planDetails {
+				.planPrice {
+					h2 {
+						margin-top: 20px;
+					}
+
+				}
+				
+				.planTier {
+					margin-top: 20px;
+
+					.planContent {
+						min-height: 85px;
+					}
+				}
+
+				.plansButton{
+					margin-top: 40px;
+				}
+
+				.features {
+					margin-top: 40px;
+
+					.featuresList {
+						ul {
+							li {
+								margin-top: 20px;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}

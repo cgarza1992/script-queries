@@ -1,0 +1,191 @@
+/**
+ * The following styles get applied both on the front of your site
+ * and in the editor.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-versatile-custom-blocks-currency-selector {
+    background-color: #fff;
+    color: #fff;
+    padding: 2px;
+}
+
+/** UTIL CLASSES **/
+
+// Use this to push the currency selector to the right when you use a 3 column layout.
+.flexEndCurrencySelector {
+    display: flex;
+    justify-content: center;
+}
+
+.hideForMobile {
+	display: none;
+}
+
+// Hide the other two containers so that they don't push down the content on mobile.
+.wp-block-column {
+    &.hideOnMobile {
+        display: none; /* hide it initially on small screens */
+    }
+}
+
+/** CURRENCY SELECTOR STYLES **/
+
+/* style the currency selector */
+.currency-selector-block {
+    margin: 24px;
+    width: 109px;
+    margin-left: 0px;
+
+    .currencySelector {
+        position: relative;
+        display: inline-block;
+        display: flex;
+        flex-direction: column; /* Stack the elements vertically */
+        align-items: center; /* Center horizontally */
+
+        .currency-select {
+            background-color: #FFFFFF;
+            position: relative; /* Set position to relative */
+            display: flex;
+            align-items: center;
+            margin: 17px 15px 0 15px;
+            text-align: center;
+            cursor: pointer;
+            padding: 10px;
+            width: 109px; /* Set width to 100% for full width */
+            box-sizing: border-box; /* Include padding in width calculation */
+            padding-right: 15px;
+            z-index: 1; /* Ensure the dropdown is above content */
+
+            /* Center the dropdown container and add border radius */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 3px;
+            border: 1px solid #D4D8DD;
+
+            &:focus-visible {
+                box-shadow: 0 0 2px rgba(95, 39, 205, 0.7), 0 0 5px rgba(95, 39, 205, 0.5);
+                transition: box-shadow 0.2s ease-in-out;
+            }
+
+            .currency-label-container {
+                .currency-label {
+                    width: 100%;
+                    font-size: 20px;
+                    font-style: normal;
+                    font-weight: 300;
+                    line-height: 140%;
+                }
+            }
+
+            /* Style for the custom dropdown */
+            .dropdown-arrow {
+                margin-top: 5px;
+                margin-left: 5px; /* Adjust the margin to position the arrow as desired */
+
+                @keyframes rotate-clicked {
+                    0% {
+                        transform: rotate(0deg);
+                    }
+                    100% {
+                        transform: rotate(180deg);
+                    }
+                }
+
+                /* Apply the rotation animation when clicked */
+                .rotate-icon-clicked {
+                    animation: rotate-clicked 0.3s ease-out; /* Adjust duration and timing function as needed */
+                    animation-fill-mode: forwards;
+                }
+            }
+
+            &.openSelect {
+                border-bottom: 0px;
+                border-radius: 3px 3px 0px 0px;
+            }
+        }
+
+        .currency-options {
+            display: none;
+            background-color: #fff;
+            list-style-type: none;
+            border: 1px solid #D4D8DD;
+            max-width: 109px;
+            margin: 0;
+            width: 109px;
+            position: absolute;
+            top: 100%; /* Position it below the select */
+            z-index: 2;
+
+
+            .currency-option {
+                list-style-type: none;
+                margin: 0;
+                padding: 10px;
+                cursor: pointer;
+                width: 100%; /* Match the width of the select container */
+
+                &:hover,
+                &.selected {
+                    background-color: #E9F0FB;
+                }
+
+                &:focus-visible {
+                    box-shadow: 0 0 2px rgba(95, 39, 205, 0.7), 0 0 5px rgba(95, 39, 205, 0.5);
+                    transition: box-shadow 0.2s ease-in-out;
+                }
+            }
+
+            &.open {
+                display: block;
+                border-top: none;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .hideOnMobile {
+        display: block; /* show it on big screens */
+    }
+
+    .currency-selector-block {
+        margin-right: 5px;
+
+        .currencySelector {
+            .currency-select {
+                width: 100%;
+            }
+            .currency-options {
+                width: 100%;
+                max-width: 400px;
+
+                .currency-option {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media (min-width: 1040px) {
+    .flexEndCurrencySelector {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .hideForMobile {
+        display: block;
+    }
+
+    .currency-selector-block {
+        .currencySelector {
+            .currency-select {
+                margin: 0px;
+            }
+        }
+    }
+}

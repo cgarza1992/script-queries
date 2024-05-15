@@ -1,0 +1,33 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+.wp-block-versatile-custom-blocks-pricing-plans {
+	border: 1px solid pink;
+}
+
+/**
+ * Plan Name Editor settings for Live Preview.
+ */
+.planName,
+.planHeaderDesc,
+.planPrice,
+.dropdownSection,
+.planFeatures {
+	color: #000;
+	font-size: 12px;
+
+	label {
+		color: #000;
+	}
+}
+
+.labelStyle,
+.editPlanName,
+.editPlanDesc {
+	color: #000;
+	font-size: 12px;
+}
+

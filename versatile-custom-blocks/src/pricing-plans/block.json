@@ -1,0 +1,114 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "versatile-custom-blocks/pricing-plans",
+	"version": "0.1.0",
+	"title": "Pricing Plans",
+	"category": "embed",
+	"icon": "money-alt",
+	"description": "Dynamic Plans Pricing Tiles",
+	"example": {},
+	"keywords": [ "pricing", "tiles", "plans", "custom" ],
+	"supports": {
+		"html": true,
+		"align": false,
+        "anchor": false,
+        "alignContent": false,
+        "color": {
+            "text": false,
+            "background": true,
+            "link": false
+        },
+        "alignText": false,
+        "fullHeight": false
+	},
+	"textdomain": "pricing-plans-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"planName": {
+			"type": "string",
+			"default": "Plan Name"
+		},
+		"uniqueID": {
+			"type": "string",
+			"default": ""
+		},
+		"planHeaderDesc": {
+			"type": "string",
+			"default": "Plan Header Description"
+		},
+		"pricingData": {
+			"type": "object",
+			"default": {}
+		},
+		"planPrice": {
+			"type": "string"
+		},
+		"planDesc": {
+			"type": "string",
+			"default": "Plan Description"
+
+		},
+		"selectedCurrency": {
+			"type": "string",
+			"default": "USD"
+		},
+		"selectedPlanType": {
+			"type": "string",
+			"default": "free"
+		},
+		"selectedTier": {
+			"type": "string",
+			"default": "firstTier"
+		},
+		"planDropdown": {
+			"type": "string"
+		},
+		"setDropdown": {
+			"type": "boolean"
+		},
+		"displayType": {
+            "type": "string"
+        },
+        "content": {
+            "type": "string"
+        },
+		"planTierData": {
+			"type": "object"
+		},
+		"formattedOveragePrice": {
+			"type": "string",
+			"default": "$0.00"
+		},
+		"buttonData": {
+			"type": "object",
+			"default": {
+				"text": "CTA Button",
+				"url": "#",
+				"openLinkIn": false,
+				"style": "primary"
+			}
+		},
+		"featuresTitle": {
+			"type": "string",
+			"default": "Features Title"
+		},
+		"features": {
+			"type": "array"
+		},
+		"newFeature": {
+			"type": "string",
+			"default": ""
+		},
+		"customAttribute": {
+			"type": "object",
+            "default": {
+                "recommendedClass": false,
+                "customCopy": ""
+            }
+        }
+	}
+}

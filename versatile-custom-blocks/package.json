@@ -1,0 +1,28 @@
+{
+	"name": "versatile-custom-blocks",
+	"version": "0.1.0",
+	"description": "Example block written with ESNext standard and JSX support – build step required.",
+	"author": "The WordPress Contributors",
+	"license": "GPL-2.0-or-later",
+	"main": "build/index.js",
+	"scripts": {
+		"build": "wp-scripts build",
+		"format": "wp-scripts format",
+		"lint:css": "wp-scripts lint-style",
+		"lint:js": "wp-scripts lint-js",
+		"start": "wp-scripts start",
+		"check-engines": "wp-scripts check-engines",
+		"packages-update": "wp-scripts packages-update"
+	},
+	"dependencies": {
+		"@wordpress/block-editor": "^7.0.0",
+		"@wordpress/blocks": "^11.0.0",
+		"@wordpress/components": "^25.6.0",
+		"@wordpress/element": "^5.18.0",
+		"@wordpress/i18n": "^4.2.1",
+		"currency.js": "^2.0.4"
+	},
+	"devDependencies": {
+		"@wordpress/scripts": "^26.12.0"
+	}
+}

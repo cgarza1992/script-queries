@@ -1,0 +1,36 @@
+{
+	"$schema": "https://schemas.wp.org/trunk/block.json",
+	"apiVersion": 3,
+	"name": "versatile-custom-blocks/currency-selector",
+	"version": "0.1.0",
+	"title": "Currency Selector",
+	"category": "embed",
+	"icon": "money-alt",
+	"description": "GeoLocated Currency Selector",
+	"example": {},
+	"keywords": [ "pricing", "tiles", "plans", "custom", "currency", "selector" ],
+	"supports": {
+		"html": true,
+		"align": false,
+        "anchor": false,
+        "alignContent": false,
+        "color": {
+            "text": false,
+            "background": true,
+            "link": false
+        },
+        "alignText": false,
+        "fullHeight": false
+	},
+	"textdomain": "currency-selector-block",
+	"editorScript": "file:./index.js",
+	"editorStyle": "file:./index.css",
+	"style": "file:./style-index.css",
+	"viewScript": "file:./view.js",
+	"attributes": {
+		"selectedCurrency": {
+			"type": "string",
+			"default": "USD"
+		}             
+	}
+}
