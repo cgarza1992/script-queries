@@ -6,6 +6,8 @@ dist/
 build/
 out/
 
+scripts-plugin/custom_search_results.csv
+
 # Local development files
 .csv
 .DS_Store

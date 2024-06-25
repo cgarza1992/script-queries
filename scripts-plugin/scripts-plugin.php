@@ -26,6 +26,7 @@ function custom_finder_admin_page() {
                 <option value="">Select a Type</option>
                 <option value="email">Email</option>
                 <option value="cta">CTA</option>
+                <option value="general">General</option>
             </select><br><br>
 
             <label for="search_items">Enter Items to Search (comma-separated):</label>
@@ -76,6 +77,17 @@ function custom_finder_generate_csv($query_type, $search_items) {
                 "SELECT ID, post_title, post_status FROM {$wpdb->prefix}posts WHERE post_content LIKE %s AND post_status = 'publish'",
                 $like
             );
+
+            if ($query_type == 'general') {
+                // Define more general search logic here, potentially expanding beyond just post content
+                $query = $wpdb->prepare(
+                    "SELECT ID, post_title, post_status FROM {$wpdb->prefix}posts WHERE post_content LIKE %s OR post_title LIKE %s AND post_status = 'publish'",
+                    $like, $like
+                );
+                // Consider adding other fields such as post_excerpt, custom fields, etc.
+            }            
+
+            
             $searchResults = $wpdb->get_results($query);
 
             if ($searchResults) {
