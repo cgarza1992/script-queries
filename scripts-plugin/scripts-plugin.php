@@ -27,9 +27,10 @@ function custom_finder_admin_page() {
                 <option value="email">Email</option>
                 <option value="cta">CTA</option>
                 <option value="general">General</option>
+                <option value="regex">Regex</option>
             </select><br><br>
 
-            <label for="search_items">Enter Items to Search (comma-separated):</label>
+            <label for="search_items">Enter Items to Search (comma-separated, use regex if 'Regex' is selected):</label>
             <textarea name="search_items" id="search_items" required></textarea><br><br>
 
             <input type="submit" value="Generate CSV" name="custom_finder_run" class="button-primary">
@@ -69,25 +70,27 @@ function custom_finder_generate_csv($query_type, $search_items) {
         switch_to_blog($blogId);
 
         foreach ($items as $item) {
-            $escapedItem = esc_sql($item);
-            $like = "%$escapedItem%";
+            if ($query_type == 'regex') {
+                // Directly use the regex provided by the user for regex query type
+                $like = $item; 
+            } else {
+                $escapedItem = esc_sql($item);
+                $like = "%$escapedItem%";
+            }
 
-            // Search in post content
-            $query = $wpdb->prepare(
-                "SELECT ID, post_title, post_status FROM {$wpdb->prefix}posts WHERE post_content LIKE %s AND post_status = 'publish'",
-                $like
-            );
-
-            if ($query_type == 'general') {
-                // Define more general search logic here, potentially expanding beyond just post content
+            // Modify the post content and title search to incorporate regex if specified
+            if ($query_type == 'regex') {
                 $query = $wpdb->prepare(
-                    "SELECT ID, post_title, post_status FROM {$wpdb->prefix}posts WHERE post_content LIKE %s OR post_title LIKE %s AND post_status = 'publish'",
-                    $like, $like
+                    "SELECT ID, post_title, post_status, post_content FROM {$wpdb->prefix}posts WHERE post_content REGEXP %s AND post_status = 'publish'",
+                    $like
                 );
-                // Consider adding other fields such as post_excerpt, custom fields, etc.
-            }            
+            } else {
+                $query = $wpdb->prepare(
+                    "SELECT ID, post_title, post_status FROM {$wpdb->prefix}posts WHERE post_content LIKE %s AND post_status = 'publish'",
+                    $like
+                );
+            }
 
-            
             $searchResults = $wpdb->get_results($query);
 
             if ($searchResults) {
@@ -106,10 +109,10 @@ function custom_finder_generate_csv($query_type, $search_items) {
                 }
             }
 
-            // Search in post meta
+            // Search in post meta, applying regex if needed
             $metaQuery = $wpdb->prepare(
-                "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value LIKE %s",
-                $like
+                "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value LIKE %s OR meta_value REGEXP %s",
+                $like, $like
             );
             $metaResults = $wpdb->get_results($metaQuery);
 
@@ -142,3 +145,4 @@ function custom_finder_generate_csv($query_type, $search_items) {
     fclose($csvFile);
     echo '<p>CSV file created: <a href="' . plugin_dir_url(__FILE__) . $csvFileName . '">' . $csvFileName . '</a></p>';
 }
+
