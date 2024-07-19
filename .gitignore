@@ -6,6 +6,9 @@ dist/
 build/
 out/
 
+# Ignore output of custom scripts
+queries/Users\ Audit
+
 scripts-plugin/custom_search_results.csv
 
 # Local development files
