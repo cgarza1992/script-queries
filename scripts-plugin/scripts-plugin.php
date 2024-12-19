@@ -2,7 +2,7 @@
 /*
 Plugin Name: Custom Scripts Finder Plugin (Auctane)
 Plugin URI: http://example.com
-Description: This plugin finds specific data in posts (e.g., emails, CTAs) and generates a CSV file based on user-defined queries.
+Description: This plugin finds specific data in posts and generates a CSV file based on user-defined queries.
 Version: 1.0
 Author: Christopher Garza
 */
@@ -10,7 +10,6 @@ Author: Christopher Garza
 defined('ABSPATH') or die('Direct access forbidden.');
 
 function cta_finder_add_admin_page() {
-    // Add a new submenu under Tools:
     add_management_page('Custom Finder', 'Custom Finder', 'manage_options', 'custom-finder', 'custom_finder_admin_page');
 }
 
@@ -39,7 +38,6 @@ function custom_finder_admin_page() {
         <?php
         if (isset($_POST['custom_finder_run'])) {
             custom_finder_generate_csv(sanitize_text_field($_POST['query_type']), sanitize_textarea_field($_POST['search_items']));
-            echo '<p>CSV generated successfully.</p>';
         }
         ?>
     </div>
@@ -54,7 +52,7 @@ function custom_finder_generate_csv($query_type, $search_items) {
     $csvFile = fopen($csvFilePath, 'w');
 
     if ($csvFile === false) {
-        die('Error opening the file ' . $csvFilePath);
+        wp_die('Error opening file ' . $csvFilePath);
     }
 
     $headers = ['Site ID', 'Post ID', 'Title', 'Found Item', 'Post Status', 'URL', 'Meta Key'];
@@ -63,6 +61,7 @@ function custom_finder_generate_csv($query_type, $search_items) {
     $items = array_map('trim', explode(',', $search_items));
     $resultsFound = false;
 
+<<<<<<< HEAD
     $sites = $wpdb->get_results("SELECT blog_id FROM {$wpdb->base_prefix}blogs");
 
     foreach ($sites as $site) {
@@ -133,9 +132,21 @@ function custom_finder_generate_csv($query_type, $search_items) {
                     ]);
                 }
             }
+=======
+    // Check if multisite
+    if (is_multisite()) {
+        $sites = get_sites();
+        foreach ($sites as $site) {
+            $results = search_site_content($site->blog_id, $items, $query_type, $wpdb);
+            write_results_to_csv($results, $csvFile, $site->blog_id);
+            $resultsFound = $resultsFound || !empty($results);
+>>>>>>> ab222a7 (feature: add in search/formatting changes.)
         }
-
-        restore_current_blog();
+    } else {
+        // Single site
+        $results = search_site_content(1, $items, $query_type, $wpdb);
+        write_results_to_csv($results, $csvFile, 1);
+        $resultsFound = !empty($results);
     }
 
     if (!$resultsFound) {
@@ -146,3 +157,84 @@ function custom_finder_generate_csv($query_type, $search_items) {
     echo '<p>CSV file created: <a href="' . plugin_dir_url(__FILE__) . $csvFileName . '">' . $csvFileName . '</a></p>';
 }
 
+<<<<<<< HEAD
+=======
+function search_site_content($blog_id, $items, $query_type, $wpdb) {
+    $results = [];
+    
+    if (is_multisite()) {
+        switch_to_blog($blog_id);
+    }
+
+    foreach ($items as $item) {
+        $escapedItem = esc_sql($item);
+        $like = "%$escapedItem%";
+
+        // Search in posts
+        $query = $wpdb->prepare(
+            "SELECT ID, post_title, post_status FROM {$wpdb->prefix}posts WHERE post_content LIKE %s AND post_status = 'publish'",
+            $like
+        );
+
+        if ($query_type == 'general') {
+            $query = $wpdb->prepare(
+                "SELECT ID, post_title, post_status FROM {$wpdb->prefix}posts WHERE (post_content LIKE %s OR post_title LIKE %s) AND post_status = 'publish'",
+                $like, $like
+            );
+        }
+
+        $posts = $wpdb->get_results($query);
+        foreach ($posts as $post) {
+            $results[] = [
+                'post_id' => $post->ID,
+                'title' => $post->post_title,
+                'found_item' => $item,
+                'status' => $post->post_status,
+                'url' => get_permalink($post->ID),
+                'meta_key' => ''
+            ];
+        }
+
+        // Search in post meta
+        $meta_results = $wpdb->get_results($wpdb->prepare(
+            "SELECT post_id FROM {$wpdb->prefix}postmeta WHERE meta_value LIKE %s",
+            $like
+        ));
+
+        foreach ($meta_results as $meta) {
+            $post = get_post($meta->post_id);
+            if ($post) {
+                $results[] = [
+                    'post_id' => $post->ID,
+                    'title' => $post->post_title,
+                    'found_item' => $item,
+                    'status' => $post->post_status,
+                    'url' => get_permalink($post->ID),
+                    'meta_key' => get_post_meta($meta->post_id, $item, true)
+                ];
+            }
+        }
+    }
+
+    if (is_multisite()) {
+        restore_current_blog();
+    }
+
+    return $results;
+}
+
+function write_results_to_csv($results, $csvFile, $blog_id) {
+    foreach ($results as $result) {
+        fputcsv($csvFile, [
+            $blog_id,
+            $result['post_id'],
+            $result['title'],
+            $result['found_item'],
+            $result['status'],
+            $result['url'],
+            $result['meta_key']
+        ]);
+    }
+}
+?>
+>>>>>>> ab222a7 (feature: add in search/formatting changes.)
